@@ -197,6 +197,7 @@ View(prison_sortrace)
 # ---------- Comparing Incarceration Statistics ----------
 
 county_info <-
+  # filtering out unique values in a row and summarizing selected columns of those rows
   incarceration_trends[!duplicated(incarceration_trends$county_name), ] %>%
   summarize(
     county_name,
@@ -208,7 +209,6 @@ county_info <-
     metro_area,
     land_area,
   )
-# filtering out unique values in a row and summarizing selected columns of those rows
 View(county_info)
 
 
