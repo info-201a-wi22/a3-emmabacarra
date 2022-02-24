@@ -121,6 +121,10 @@ prison_sortgender <-
     total_incarcerated = sum(total_prison_pop, na.rm = TRUE),
     females_incarcerated = sum(female_prison_pop, na.rm = TRUE),
     males_incarcerated = sum(male_prison_pop, na.rm = TRUE)
+    
+    # Note:
+    # In-depth statistics provided for county jail incarcerations
+    # are not provided for records at the state/federal prison level.
   )
 View(prison_sortgender)
 
