@@ -196,10 +196,24 @@ View(prison_sortrace)
 
 # ---------- Comparing Incarceration Statistics ----------
 
-# group by county, compare change in numbers from earliest to most recent date
-# state, county_name, urbanicity, region, division, commuting_zone
-# metro_area, land_area
+county_info <-
+  incarceration_trends[!duplicated(incarceration_trends$county_name), ] %>%
+  summarize(
+    county_name,
+    state,
+    urbanicity,
+    region,
+    division,
+    commuting_zone,
+    metro_area,
+    land_area,
+  )
+# filtering out unique values in a row and summarizing selected columns of those rows
+View(county_info)
+
 
 
 # total_jail_adm (admissioned), total_jail_dis (discharged)
 # deaths (DCRP)
+
+
