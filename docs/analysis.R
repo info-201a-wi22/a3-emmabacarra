@@ -49,9 +49,9 @@ jail_sortgender <-
     males_15to64 = sum(male_pop_15to64, na.rm = TRUE), # total males between ages 15-64    
 
     # Gender Totals in Jail
-    total_incarcerated = sum(total_jail_pop, na.rm = TRUE),
-    females_incarcerated = sum(female_jail_pop, na.rm = TRUE),
-    males_incarcerated = sum(male_jail_pop, na.rm = TRUE),
+    total_incarcerated = mean(c(total_jail_pop, total_jail_pop_dcrp), na.rm = TRUE), # average between 2 sources
+    females_incarcerated = mean(c(female_jail_pop, female_jail_pop_dcrp), na.rm = TRUE),
+    males_incarcerated = mean(c(male_jail_pop, male_jail_pop_dcrp), na.rm = TRUE),
     
     # Number of Adults in Jail
     adult_females = sum(female_adult_jail_pop, na.rm = TRUE),
@@ -76,7 +76,7 @@ jail_sortrace <-
     # General Population
     total_pop = sum(total_pop, na.rm = TRUE), # total recorded population
     total_pop_15to64 = sum(total_pop_15to64, na.rm = TRUE), # total between the ages 15-64
-    total_incarcerated = sum(total_jail_pop, na.rm = TRUE), # total population in jail
+    total_incarcerated = mean(c(total_jail_pop, total_jail_pop_dcrp), na.rm = TRUE), # average between 2 sources
     
     # White
     white_totpop_15to64 = sum(white_pop_15to64, na.rm = TRUE), # gen population white between 15-64
@@ -211,19 +211,32 @@ View(county_info)
 
 
 # total_jail_adm (admitted), total_jail_dis (discharged)
-# deaths (DCRP)
 # compare recent and latest year and changes in between
 
-jail_info <-
+jail_genderinfo <-
   incarceration_trends %>%
   filter(
     year == max(year) | year == min(year)
   ) %>% # used logical operator "OR" to apply multiple arguments
   summarize(
+    year,
     county_name,
     state,
-    total_incarcerated = sum(total_jail_pop, na.rm = TRUE),
-    females_incarcerated = sum(female_jail_pop, na.rm = TRUE),
-    males_incarcerated = sum(male_jail_pop, na.rm = TRUE),
+    
+    # total population of inmates within that year
+    total_incarcerated = mean(c(total_jail_pop, total_jail_pop_dcrp), na.rm = TRUE), # average between 2 sources
+    females_incarcerated = mean(c(female_jail_pop, female_jail_pop_dcrp), na.rm = TRUE),
+    males_incarcerated = mean(c(male_jail_pop, male_jail_pop_dcrp), na.rm = TRUE),
+    
+    # total within population that are newly admitted
+    total_new_inmates = mean(c(total_jail_adm, total_jail_adm_dcrp), na.rm = TRUE),
+    total_pct_increase = sum(total_jail_pop_rate, na.rm = TRUE),
+    new_female_inmates = sum(female_jail_adm_dcrp, na.rm = TRUE),
+    female_pct_increase = sum(female_jail_pop_rate, na.rm = TRUE),
+    new_male_inmates = sum(male_jail_adm_dcrp, na.rm = TRUE),
+    male_pct_increase = sum(male_jail_pop_rate, na.rm = TRUE),
+    
+    # total within population that are recently discharged
+    total_discharged = sum(total_jail_dis, na.rm = TRUE)
   )
-View(jail_info)
+View(jail_genderinfo)
