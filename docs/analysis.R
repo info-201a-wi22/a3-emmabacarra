@@ -39,11 +39,13 @@ jail_sortgender <-
     # General Population
     total_pop = sum(total_pop, na.rm = TRUE), # total within the county
     total_pop_15to64 = sum(total_pop_15to64, na.rm = TRUE), # total between the ages 15-64
+    females_15to64 = sum(female_pop_15to64, na.rm = TRUE), # total females between ages 15-64
+    males_15to64 = sum(male_pop_15to64, na.rm = TRUE), # total males between ages 15-64    
 
     # Gender Totals in Jail
     total_incarcerated = sum(total_jail_pop, na.rm = TRUE),
-    female_incarcerated = sum(female_jail_pop, na.rm = TRUE),
-    male_incarcerated = sum(male_jail_pop, na.rm = TRUE),
+    females_incarcerated = sum(female_jail_pop, na.rm = TRUE),
+    males_incarcerated = sum(male_jail_pop, na.rm = TRUE),
     
     # Number of Adults in Jail
     adult_females = sum(female_adult_jail_pop, na.rm = TRUE),
@@ -54,7 +56,9 @@ jail_sortgender <-
     juvenile_males = sum(male_juvenile_jail_pop, na.rm = TRUE),
     
     # Number of Deaths in Jail Custody (DCRP)
-    
+    jail_deaths = sum(total_jail_pop_dcrp, na.rm = TRUE),
+    female_deaths = sum(female_jail_pop_dcrp, na.rm = TRUE),
+    male_deaths = sum(male_jail_pop_dcrp, na.rm = TRUE),
     
   )
 View(jail_sortgender)
@@ -67,19 +71,42 @@ jail_sortrace <-
     # General Population
     total_pop = sum(total_pop, na.rm = TRUE), # total within the county
     total_pop_15to64 = sum(total_pop_15to64, na.rm = TRUE), # total between the ages 15-64
+    total_incarcerated = sum(total_jail_pop, na.rm = TRUE), # total population in jail
     
     # White
+    white_totpop_15to64 = sum(white_pop_15to64, na.rm = TRUE), # gen population white between 15-64
+    white_incarcerated = sum(white_jail_pop, na.rm = TRUE),
     
     # Black
+    black_totpop_15to64 = sum(black_pop_15to64, na.rm = TRUE), # gen population black individuals between 15-64
+    black_incarcerated = sum(black_jail_pop, na.rm = TRUE),
     
     # Latinx
+    latinx_totpop_15to64 = sum(latinx_pop_15to64, na.rm = TRUE), # gen population latinx between 15-64
+    latinx_incarcerated = sum(latinx_jail_pop, na.rm = TRUE), 
     
     # AAPI (Asian American and Pacific Islander)
+    aapi_totpop_15to64 = sum(aapi_pop_15to64, na.rm = TRUE), # gen population AAPI between 15-64
     aapi_incarcerated = sum(aapi_jail_pop, na.rm = TRUE),
     
     # Native American
+    native_totpop_15to64 = sum(native_pop_15to64, na.rm = TRUE), # gen population native between 15-64
+    native_incarcerated = sum(native_jail_pop, na.rm = TRUE),
     
     # Other Race
+    other_totpop_15to64 = 
+      total_pop_15to64 - (sum(
+        white_totpop_15to64,
+        black_totpop_15to64,
+        latinx_totpop_15to64,
+        aapi_totpop_15to64,
+        native_totpop_15to64,
+        na.rm = TRUE
+        )),
+    other_incarcerated = sum(other_race_jail_pop, na.rm = TRUE),
+    
+    # Number of Deaths in Jail Custody (DCRP)
+    
   )
 View(jail_sortrace)
 
@@ -91,7 +118,8 @@ prison_sortgender <-
     # General Population
     total_pop = sum(total_pop, na.rm = TRUE), # total within the county
     total_pop_15to64 = sum(total_pop_15to64, na.rm = TRUE), # total between the ages 15-64
-    
+    females_15to64 = sum(female_pop_15to64, na.rm = TRUE), # total females between ages 15-64
+    males_15to64 = sum(male_pop_15to64, na.rm = TRUE), # total males between ages 15-64        
     
   )
 View(prison_sortgender)
@@ -104,6 +132,8 @@ prison_sortrace <-
     # General Population
     total_pop = sum(total_pop, na.rm = TRUE), # total within the county
     total_pop_15to64 = sum(total_pop_15to64, na.rm = TRUE), # total between the ages 15-64
+    females_15to64 = sum(female_pop_15to64, na.rm = TRUE), # total females between ages 15-64
+    males_15to64 = sum(male_pop_15to64, na.rm = TRUE), # total males between ages 15-64    
     
   )
 View(prison_sortrace)
@@ -113,3 +143,8 @@ View(prison_sortrace)
 # ---------- Incarceration Statistics by County ----------
 
 # group by county, compare change in numbers from earliest to most recent date
+# state, county_name, urbanicity, region, division, commuting_zone
+# metro_area, land_area
+
+
+# total_jail_adm (admissioned), total_jail_dis (discharged)
