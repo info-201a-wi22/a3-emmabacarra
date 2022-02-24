@@ -238,3 +238,4 @@ jail_genderinfo <-
 View(jail_genderinfo)
 
 # to do: compare numbers, do same for race
+# descriptions for each chart
