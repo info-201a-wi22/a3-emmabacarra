@@ -209,7 +209,7 @@ county_info <-
   )
 View(county_info)
 
-jail_genderinfo <-
+jail_genderstats <-
   incarceration_trends %>%
   filter(
     year == max(year) | year == min(year)
@@ -235,7 +235,9 @@ jail_genderinfo <-
     # total within population that are recently discharged
     total_discharged = total_jail_dis
   )
-View(jail_genderinfo)
+View(jail_genderstats)
+
+jail_gender_comparison
 
 # to do: compare numbers, do same for race
 # descriptions for each chart
