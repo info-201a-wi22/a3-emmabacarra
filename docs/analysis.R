@@ -33,6 +33,17 @@ paste("There are", obs_jurisdiction, "observations and", nfeats_jurisdiction, "f
 # "federal prison", and refers to a larger facility of confinement than a county jail.
 
 colnames(incarceration_trends)
+
+jail_columns <- 
+  incarceration_trends %>%
+  select(contains("jail"))
+colnames(jail_columns)
+
+prison_columns <-
+  incarceration_trends %>%
+  select(contains("prison"))
+colnames(prison_columns)
+
 # column names
 
 # ---------- Annual Total Incarcerations ----------
@@ -66,7 +77,7 @@ jail_sortgender <-
     female_deaths = sum(female_jail_pop_dcrp, na.rm = TRUE),
     male_deaths = sum(male_jail_pop_dcrp, na.rm = TRUE)
   )
-View(jail_sortgender)
+#View(jail_sortgender)
 
 # Annual County Jail Incarceration Statistics By Race
 jail_sortrace <-
@@ -110,7 +121,7 @@ jail_sortrace <-
         )),
     other_incarcerated = sum(other_race_jail_pop, na.rm = TRUE)
   )
-View(jail_sortrace)
+#View(jail_sortrace)
 
 # Annual State/Federal Prison Incarceration Statistics by Gender
 prison_sortgender <- 
@@ -132,7 +143,7 @@ prison_sortgender <-
     # In-depth gender statistics provided for county jail incarcerations
     # are not provided for records at the state/federal prison level.
   )
-View(prison_sortgender)
+#View(prison_sortgender)
 
 # Annual State/Federal Prison Incarceration Statistics by Race
 prison_sortrace <- 
@@ -188,7 +199,7 @@ prison_sortrace <-
     other_females = sum(other_race_female_prison_pop, na.rm = TRUE),
     other_males = sum(other_race_male_prison_pop, na.rm = TRUE)
   )
-View(prison_sortrace)
+#View(prison_sortrace)
 
 
 
@@ -244,3 +255,46 @@ jail_gender_comparison
 
 # to do: compare numbers, do same for race
 # descriptions for each chart, disclaimers for included/missing information/columns
+
+jail_racestats <-
+  incarceration_trends %>%
+  filter(
+    year == max(year) | year == min(year)
+  ) %>% # used logical operator "OR" to apply multiple arguments
+  summarize(
+    year,
+    county_name,
+    state,
+    
+    # total population of inmates within that year
+    total_incarcerated = total_jail_pop,
+    total_new_inmates = total_jail_adm,
+    total_pct_increase = total_jail_pop_rate,
+    
+    # White
+    white_incarcerated = white_jail_pop,
+    white_rate = white_jail_pop_rate,
+    
+    # Black
+    black_incarcerated = black_jail_pop,
+    black_rate = black_jail_pop_rate,
+    
+    # Latinx
+    latinx_incarcerated = latinx_jail_pop,
+    latinx_rate = latinx_jail_pop_rate,
+    
+    # AAPI
+    aapi_incarcerated = aapi_jail_pop,
+    aapi_rate = aapi_jail_pop_rate,
+    
+    # Native American
+    native_incarcerated = native_jail_pop,
+    native_rate = native_jail_pop_rate,
+    
+    # Other
+    other_incarcerated = other_race_jail_pop,
+    other_rate = 
+  )
+View(jail_racestats)
+
+
