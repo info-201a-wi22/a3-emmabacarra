@@ -25,12 +25,12 @@ nfeats_jurisdiction <- ncol(jail_jurisdiction)
 paste("There are", obs_jurisdiction, "observations and", nfeats_jurisdiction, "features (columns) in `jail_jurisdiction`.")
 
 # Note:
-# Jail refers to individuals who are held in lawful custody (i.e. have been convicted of
-# a minor offense or are waiting to go on trial for their accusation) for a short period
-# of time. The word jail implies that it is a smaller, local facility. Prison refers to
-# individuals who have been convicted of more serious offenses and are sentenced to longer
-# terms. Prison can also be referred to as "state prison" or "federal prison", and refers
-# to a larger facility of confinement.
+# Jail refers to individuals who are held in lawful custody (i.e. have been convicted
+# of a minor offense or are waiting to go on trial for their accusation) for a short
+# period of time. The word jail implies that it is a smaller, local facility. Prison
+# refers to individuals who have been convicted of more serious offenses and are
+# sentenced to longer terms. Prison can also be referred to as "state prison" or 
+# "federal prison", and refers to a larger facility of confinement.
 
 
 
