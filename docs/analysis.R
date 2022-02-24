@@ -238,6 +238,9 @@ jail_genderstats <-
 View(jail_genderstats)
 
 jail_gender_comparison
+# difference in numbers, comparing one row with one below it
+# group by county? time difference
+# separate as tibbles then combine to one dataframe?
 
 # to do: compare numbers, do same for race
 # descriptions for each chart
