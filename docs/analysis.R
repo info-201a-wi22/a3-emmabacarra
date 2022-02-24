@@ -209,11 +209,6 @@ county_info <-
   )
 View(county_info)
 
-
-# total_jail_adm (admitted), total_jail_dis (discharged)
-# compare recent and latest year and changes in between
-
-
 jail_genderinfo <-
   incarceration_trends %>%
   filter(
@@ -242,3 +237,4 @@ jail_genderinfo <-
   )
 View(jail_genderinfo)
 
+# to do: compare numbers, do same for race
