@@ -243,4 +243,4 @@ jail_gender_comparison
 # separate as tibbles then combine to one dataframe?
 
 # to do: compare numbers, do same for race
-# descriptions for each chart
+# descriptions for each chart, disclaimers for included/missing information/columns
