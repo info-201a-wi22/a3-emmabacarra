@@ -216,11 +216,14 @@ View(county_info)
 
 jail_info <-
   incarceration_trends %>%
-  group_by(year) %>%
+  filter(
+    year == max(year) | year == min(year)
+  ) %>% # used logical operator "OR" to apply multiple arguments
   summarize(
     county_name,
     state,
     total_incarcerated = sum(total_jail_pop, na.rm = TRUE),
-    
+    females_incarcerated = sum(female_jail_pop, na.rm = TRUE),
+    males_incarcerated = sum(male_jail_pop, na.rm = TRUE),
   )
 View(jail_info)
