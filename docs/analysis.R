@@ -186,7 +186,7 @@ View(prison_sortrace)
 
 
 
-# ---------- Incarceration Statistics by County ----------
+# ---------- Comparing Incarceration Statistics ----------
 
 # group by county, compare change in numbers from earliest to most recent date
 # state, county_name, urbanicity, region, division, commuting_zone
