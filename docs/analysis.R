@@ -255,7 +255,6 @@ jail_gender_comparison
 # group by county? time difference
 # separate as tibbles then combine to one dataframe?
 
-# to do: compare numbers, do same for race
 # descriptions for each chart, disclaimers for included/missing information/columns
 
 jail_racestats <-
@@ -295,7 +294,10 @@ jail_racestats <-
     
     # Other
     other_incarcerated = other_race_jail_pop,
-    other_rate = 
+    # no population rate provided for "other"
+    
+    # total within population that are recently discharged
+    total_discharged = total_jail_dis
   )
 View(jail_racestats)
 
