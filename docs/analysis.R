@@ -30,7 +30,7 @@ paste("There are", obs_jurisdiction, "observations and", nfeats_jurisdiction, "f
 # period of time. The word jail implies that it is a smaller, local facility. Prison
 # refers to individuals who have been convicted of more serious offenses and are
 # sentenced to longer terms. Prison can also be referred to as "state prison" or 
-# "federal prison", and refers to a larger facility of confinement than county-level.
+# "federal prison", and refers to a larger facility of confinement than a county jail.
 
 
 
