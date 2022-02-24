@@ -240,8 +240,12 @@ jail_genderstats <-
     # total within population that are newly admitted
     total_new_inmates = total_jail_adm,
     total_pct_increase = total_jail_pop_rate,
+    
+    # females in jail
     new_female_inmates = female_jail_adm_dcrp,
     female_pct_increase = female_jail_pop_rate,
+    
+    # males in jail
     new_male_inmates = male_jail_adm_dcrp,
     male_pct_increase = male_jail_pop_rate,
     
@@ -334,8 +338,12 @@ prison_genderadm <-
     # total within population that are newly admitted
     total_new_inmates = total_prison_adm,
     total_pct_increase = total_prison_pop_rate,
+    
+    # females in prison
     new_female_inmates = female_prison_adm,
     female_pct_increase = female_prison_adm_rate,
+    
+    # males in prison
     new_male_inmates = male_prison_adm,
     male_pct_increase = male_prison_adm_rate
     
