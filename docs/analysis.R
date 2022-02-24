@@ -32,12 +32,10 @@ paste("There are", obs_jurisdiction, "observations and", nfeats_jurisdiction, "f
 # sentenced to longer terms. Prison can also be referred to as "state prison" or 
 # "federal prison", and refers to a larger facility of confinement than a county jail.
 
-
+colnames(incarceration_trends)
+# column names
 
 # ---------- Annual Total Incarcerations ----------
-# Data from `incarceration_trends` are sorted
-
-colnames(incarceration_trends)
 
 # Annual County Jail Incarceration Statistics By Gender
 jail_sortgender <- 
@@ -212,8 +210,17 @@ county_info <-
 View(county_info)
 
 
-
-# total_jail_adm (admissioned), total_jail_dis (discharged)
+# total_jail_adm (admitted), total_jail_dis (discharged)
 # deaths (DCRP)
+# compare recent and latest year and changes in between
 
-
+jail_info <-
+  incarceration_trends %>%
+  group_by(year) %>%
+  summarize(
+    county_name,
+    state,
+    total_incarcerated = sum(total_jail_pop, na.rm = TRUE),
+    
+  )
+View(jail_info)
