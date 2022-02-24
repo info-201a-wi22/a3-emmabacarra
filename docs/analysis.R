@@ -2,10 +2,16 @@ rm(list = ls())
 library(dplyr)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
-View(incarceration_trends) # Incarcerated population/area by county-level
+View(incarceration_trends)
 
 jail_jurisdiction <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends_jail_jurisdiction.csv")
-View(jail_jurisdiction) # Incarcerated population by jurisdiction-level
+View(jail_jurisdiction)
+
+# For this assignment, I will be comparing data drawn from `incarceration_trends` and  
+# `jail_jurisdiction`, observing any differences between demographics such as race and 
+# gender. The information recorded in `incarceration_trends` is based on incarcerated 
+# populations & the surrounding areas on a county-level basis. `jail_jurisdiction` is
+# based on incarcerated populations in local county jails.
 
 
 
@@ -29,6 +35,8 @@ paste("There are", obs_jurisdiction, "observations and", nfeats_jurisdiction, "f
 
 
 # ---------- Annual Total Incarcerations ----------
+# Data from `incarceration_trends` are sorted
+
 colnames(incarceration_trends)
 
 # Annual County Jail Incarceration Statistics By Gender
