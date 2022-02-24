@@ -205,7 +205,7 @@ prison_sortrace <-
 
 
 
-# ---------- Comparing Incarceration Statistics ----------
+# ---------- Comparing Jail Incarceration Statistics ----------
 
 county_info <-
   # filtering out unique values in a row and summarizing selected columns of those rows
@@ -255,7 +255,7 @@ jail_gender_comparison
 
 # difference in numbers, comparing one row with one below it
 # group by county? time difference
-# separate as tibbles then combine to one dataframe?
+# separate as tibbles then combine to one data frame?
 
 # descriptions for each chart, disclaimers for included/missing information/columns
 
@@ -309,3 +309,96 @@ View(jail_racestats)
 
 
 # map of stats from most recent year showing inmate population
+
+
+# ---------- Comparing Prison Incarceration Statistics ----------
+
+View(county_info)
+
+# gender admission
+prison_genderadm <-
+  incarceration_trends %>%
+  filter(
+    year == max(year) | year == min(year)
+  ) %>% # used logical operator "OR" to apply multiple arguments
+  summarize(
+    year,
+    county_name,
+    state,
+    
+    # total population of inmates within that year
+    total_incarcerated = total_prison_pop,
+    females_incarcerated = female_prison_pop,
+    males_incarcerated = male_prison_pop,
+    
+    # total within population that are newly admitted
+    total_new_inmates = total_prison_adm,
+    total_pct_increase = total_prison_pop_rate,
+    new_female_inmates = female_prison_adm,
+    female_pct_increase = female_prison_adm_rate,
+    new_male_inmates = male_prison_adm,
+    male_pct_increase = male_prison_adm_rate
+    
+    # no data for total population recently discharged
+    
+  )
+View(prison_genderadm)
+
+# race admission
+prison_raceadm <-
+  incarceration_trends %>%
+  filter(
+    year == max(year) | year == min(year)
+  ) %>% # used logical operator "OR" to apply multiple arguments
+  summarize(
+    year,
+    county_name,
+    state,
+    
+    # total population of inmates within that year
+    total_incarcerated = total_prison_pop,
+    total_new_inmates = total_prison_adm,
+    total_pct_increase = total_prison_adm_rate,
+    
+    # White
+    white_incarcerated = white_prison_pop,
+    white_adm = white_prison_adm,
+    white_admrate = white_prison_adm_rate,
+    white_female_adm = white_female_prison_adm,
+    white_male_adm = white_female_prison_adm,
+    
+    # Black
+    black_incarcerated = black_prison_pop,
+    black_adm = black_prison_adm,
+    black_admrate = black_prison_adm_rate,
+    black_female_adm = black_female_prison_adm,
+    black_male_adm = black_male_prison_adm,
+    
+    # Latinx
+    latinx_incarcerated = latinx_prison_pop,
+    latinx_adm = latinx_prison_adm,
+    latinx_admrate = latinx_prison_adm_rate,
+    latinx_female_adm = latinx_female_prison_adm,
+    latinx_male_adm = latinx_male_prison_adm,
+    
+    # AAPI
+    aapi_incarcerated = aapi_prison_pop,
+    aapi_adm = aapi_prison_adm,
+    aapi_admrate = aapi_prison_adm_rate,
+    aapi_female_adm = aapi_female_prison_adm,
+    aapi_male_adm = aapi_male_prison_adm,
+    
+    # Native American
+    native_incarcerated = native_prison_pop,
+    native_adm = native_prison_adm,
+    native_admrate = native_prison_adm_rate,
+    native_female_adm = native_female_prison_adm,
+    native_male_adm = native_male_prison_adm,
+    
+    # Other
+    other_incarcerated = other_race_prison_pop,
+    other_adm = other_race_prison_adm,
+    other_female_adm = other_race_female_prison_adm,
+    other_male_adm = other_race_male_prison_adm
+  )
+View(prison_raceadm)
