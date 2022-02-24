@@ -38,13 +38,15 @@ jail_columns <-
   incarceration_trends %>%
   select(contains("jail"))
 colnames(jail_columns)
+# selecting columns that contain the string "jail"
 
 prison_columns <-
   incarceration_trends %>%
   select(contains("prison"))
 colnames(prison_columns)
+# selecting columns that contain the string "prison"
 
-# column names
+
 
 # ---------- Annual Total Incarcerations ----------
 
