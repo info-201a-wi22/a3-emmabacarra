@@ -1,5 +1,6 @@
 rm(list = ls())
 library(dplyr)
+library(ggplot2)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
