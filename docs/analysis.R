@@ -406,23 +406,18 @@ View(prison_raceadm)
 
 
 # ---------- Trends Over Time Chart ----------
-# compare trends over time per race
+# compare trends over time per race in prison
 
-
-
-
-# map of stats from most recent year showing inmate population
 
 
 
 # ---------- Variable Comparison Chart ----------
-# total jail, total female, total male population
+# total jail, total female, total male population in jail
 
 
-# compare women and men (variable comparison)
 
-# difference in numbers, comparing one row with one below it
-# group by county? time difference
-# separate as tibbles then combine to one data frame?
+# ---------- Map ----------
 
-# descriptions for each chart, disclaimers for included/missing information/columns
+# map of stats from most recent year showing inmate population
+
+
