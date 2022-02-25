@@ -227,7 +227,7 @@ prison_sortrace <-
 
 # ---------- Comparing Jail Incarceration Statistics ----------
 
-# Comparing Newly Admitted Inmates in County Jails by Gender
+# Comparing Incarceration Population in County Jails by Gender
 jail_genderstats <-
   incarceration_trends %>%
   filter(
@@ -261,7 +261,7 @@ jail_genderstats <-
 View(jail_genderstats)
 
 
-# Comparing Newly Admitted Inmates in County Jails by Race
+# Comparing Incarceration Population in County Jails by Race
 jail_racestats <-
   incarceration_trends %>%
   filter(
@@ -342,6 +342,7 @@ prison_genderadm <-
     
   )
 View(prison_genderadm)
+
 
 # Comparing Newly Admitted Inmates in State/Federal Prisons by Race
 prison_raceadm <-
