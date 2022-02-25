@@ -17,6 +17,7 @@ View(jail_jurisdiction)
 
 
 # ---------- General Overview of `incarceration_trends` and `jail_jurisdiction` ----------
+
 obs_counties <- nrow(incarceration_trends)
 nfeats_counties <- ncol(incarceration_trends)
 paste("There are", obs_counties, "observations and", nfeats_counties, "features (columns) in `incarceration_trends`.")
@@ -33,21 +34,37 @@ paste("There are", obs_jurisdiction, "observations and", nfeats_jurisdiction, "f
 # sentenced to longer terms. Prison can also be referred to as "state prison" or 
 # "federal prison", and refers to a larger facility of confinement than a county jail.
 
+
 colnames(incarceration_trends)
 
+# selecting columns that contain the string "jail"
 jail_columns <- 
   incarceration_trends %>%
   select(contains("jail"))
 colnames(jail_columns)
-# selecting columns that contain the string "jail"
 
+# selecting columns that contain the string "prison"
 prison_columns <-
   incarceration_trends %>%
   select(contains("prison"))
 colnames(prison_columns)
-# selecting columns that contain the string "prison"
 
 
+# background information on the counties recorded in `incarceration_trends`
+county_info <-
+  # filtering out unique values in a row and summarizing selected columns of those rows
+  incarceration_trends[!duplicated(incarceration_trends$county_name), ] %>%
+  summarize(
+    county_name,
+    state,
+    urbanicity,
+    region,
+    division,
+    commuting_zone,
+    metro_area,
+    land_area,
+  )
+View(county_info)
 
 # ---------- Annual Total Incarcerations ----------
 
@@ -207,22 +224,6 @@ prison_sortrace <-
 
 
 # ---------- Comparing Jail Incarceration Statistics ----------
-
-county_info <-
-  # filtering out unique values in a row and summarizing selected columns of those rows
-  incarceration_trends[!duplicated(incarceration_trends$county_name), ] %>%
-  summarize(
-    county_name,
-    state,
-    urbanicity,
-    region,
-    division,
-    commuting_zone,
-    metro_area,
-    land_area,
-  )
-View(county_info)
-
 jail_genderstats <-
   incarceration_trends %>%
   filter(
@@ -254,6 +255,7 @@ jail_genderstats <-
     total_discharged = total_jail_dis
   )
 View(jail_genderstats)
+
 
 jail_gender_comparison
 # compare women and men (variable comparison)
@@ -316,9 +318,13 @@ View(jail_racestats)
 # map of stats from most recent year showing inmate population
 
 
-# ---------- Comparing Prison Incarceration Statistics ----------
 
-View(county_info)
+# ---------- Variable Comparison Chart ----------
+# total jail, total female, total male population
+
+
+
+# ---------- Comparing Prison Incarceration Statistics ----------
 
 # gender admission
 prison_genderadm <-
@@ -411,3 +417,7 @@ prison_raceadm <-
     other_male_adm = other_race_male_prison_adm
   )
 View(prison_raceadm)
+
+
+
+# ---------- Trends Over Time Chart ----------
