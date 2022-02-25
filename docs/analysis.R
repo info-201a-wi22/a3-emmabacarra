@@ -422,8 +422,10 @@ totc <-
   )
 View(totc)
 
-ggplot(data = totc, aes(x = year, group = cut, fill = cut)) + 
-  geom_density(adjust = 1.5, alpha = 0.3) 
+ggplot(data = totc, aes(x = year)) + 
+  geom_line(aes(y = total_incarcerated, color = "Total Incarcerated")) +
+  geom_line(aes(y = females_incarcerated, color = "Female")) +
+  geom_line(aes(y = males_incarcerated, color "Male"))
 
 
 
