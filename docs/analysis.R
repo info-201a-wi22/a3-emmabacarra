@@ -66,6 +66,8 @@ county_info <-
   )
 View(county_info)
 
+
+
 # ---------- Annual Total Incarcerations ----------
 
 # Annual County Jail Incarceration Statistics By Gender
@@ -224,6 +226,8 @@ prison_sortrace <-
 
 
 # ---------- Comparing Jail Incarceration Statistics ----------
+
+# Comparing Newly Admitted Inmates in County Jails by Gender
 jail_genderstats <-
   incarceration_trends %>%
   filter(
@@ -257,15 +261,7 @@ jail_genderstats <-
 View(jail_genderstats)
 
 
-jail_gender_comparison
-# compare women and men (variable comparison)
-
-# difference in numbers, comparing one row with one below it
-# group by county? time difference
-# separate as tibbles then combine to one data frame?
-
-# descriptions for each chart, disclaimers for included/missing information/columns
-
+# Comparing Newly Admitted Inmates in County Jails by Race
 jail_racestats <-
   incarceration_trends %>%
   filter(
@@ -310,23 +306,11 @@ jail_racestats <-
   )
 View(jail_racestats)
 
-# compare trends over time per race
-
-
-
-
-# map of stats from most recent year showing inmate population
-
-
-
-# ---------- Variable Comparison Chart ----------
-# total jail, total female, total male population
-
 
 
 # ---------- Comparing Prison Incarceration Statistics ----------
 
-# gender admission
+# Comparing Newly Admitted Inmates in State/Federal Prisons by Gender
 prison_genderadm <-
   incarceration_trends %>%
   filter(
@@ -359,7 +343,7 @@ prison_genderadm <-
   )
 View(prison_genderadm)
 
-# race admission
+# Comparing Newly Admitted Inmates in State/Federal Prisons by Race
 prison_raceadm <-
   incarceration_trends %>%
   filter(
@@ -421,3 +405,23 @@ View(prison_raceadm)
 
 
 # ---------- Trends Over Time Chart ----------
+# compare trends over time per race
+
+
+
+
+# map of stats from most recent year showing inmate population
+
+
+
+# ---------- Variable Comparison Chart ----------
+# total jail, total female, total male population
+
+
+# compare women and men (variable comparison)
+
+# difference in numbers, comparing one row with one below it
+# group by county? time difference
+# separate as tibbles then combine to one data frame?
+
+# descriptions for each chart, disclaimers for included/missing information/columns
