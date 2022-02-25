@@ -1,6 +1,9 @@
 rm(list = ls())
 library(dplyr)
 library(ggplot2)
+library(tidyr)
+library(hrbrthemes)
+library(viridis)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
@@ -99,7 +102,7 @@ jail_sortgender <-
     female_deaths = sum(female_jail_pop_dcrp, na.rm = TRUE),
     male_deaths = sum(male_jail_pop_dcrp, na.rm = TRUE)
   )
-#View(jail_sortgender)
+View(jail_sortgender)
 
 # Annual County Jail Incarceration Statistics By Race
 jail_sortrace <-
@@ -230,9 +233,9 @@ prison_sortrace <-
 # Comparing Incarceration Population in County Jails by Gender
 jail_genderstats <-
   incarceration_trends %>%
-  filter(
-    year == max(year) | year == min(year)
-  ) %>% # used logical operator "OR" to apply multiple arguments
+#  filter(
+#    year == max(year) | year == min(year)
+#  ) %>% # used logical operator "OR" to apply multiple arguments
   summarize(
     year,
     county_name,
@@ -406,13 +409,27 @@ View(prison_raceadm)
 
 
 # ---------- Trends Over Time Chart ----------
-# compare trends over time per race in prison
+# population rate per gender & total 
+# x-axis: time, y-axis: population
 
+totc <- 
+  jail_sortgender %>%
+  summarize(
+    year,
+    total_incarcerated,
+    females_incarcerated,
+    males_incarcerated
+  )
+View(totc)
+
+ggplot(data = totc, aes(x = year, group = cut, fill = cut)) + 
+  geom_density(adjust = 1.5, alpha = 0.3) 
 
 
 
 # ---------- Variable Comparison Chart ----------
-# total jail, total female, total male population in jail
+# compare which races make up the most of population
+
 
 
 
