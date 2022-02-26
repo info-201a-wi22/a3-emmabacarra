@@ -446,7 +446,7 @@ ggplot(
 
 View(jail_racestats)
 
-# Racial Distribution For Earliest Year of Data
+# Racial Distribution in Jail For Earliest Year of Data
 vcc_jailmin <-
   jail_racestats %>%
   filter(year == min(year)) %>%
@@ -473,7 +473,7 @@ vcc_jailmin
 # Let's compare racial ethnic groups from the most recent year of data...
 
 
-# Racial Distribution For Most Recent Year of Data
+# Racial Distribution in Jail For Most Recent Year of Data
 vcc_jailmax <-
   jail_racestats %>%
   filter(year == max(year)) %>%
