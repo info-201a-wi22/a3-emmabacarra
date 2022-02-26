@@ -396,10 +396,6 @@ View(prison_raceadm)
 
 # ---------- Trends Over Time Chart ----------
 
-# new admits by race over time
-
-View(prison_raceadm)
-
 totc <- 
   prison_raceadm %>%
   summarize(
@@ -413,13 +409,12 @@ totc <-
   )
 View(totc)
 
-# rearranging `totc` to be formatted for ggplot
 melt_totc <- 
   melt(totc, id = c("Year")) %>%
   rename(
     Race = variable,
     `New Admits` = value
-  )
+  ) # rearranging `totc` to be formatted for ggplot
 View(melt_totc)
 
 ggplot(
