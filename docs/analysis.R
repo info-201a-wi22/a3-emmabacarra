@@ -442,7 +442,56 @@ ggplot(
 
 
 # ---------- Variable Comparison Chart ----------
-# compare which races make up the most of population
+# percentages of races that make up incarcerated population
+# x = race, y = percent
+# vertical bar chart?
+# left bar shows 1970, right bar shows 2018 (diff color for year)
+# 2 bars per race
+
+View(jail_racestats)
+
+# Total Population by Racial Groups For Most Recent Year of Data
+vcc_jailmax <-
+  jail_racestats %>%
+  filter(year == max(year)) %>%
+  summarize(
+    `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
+    White = sum(white_incarcerated, na.rm = TRUE),
+    Black = sum(black_incarcerated, na.rm = TRUE),
+    Latinx = sum(latinx_incarcerated, na.rm = TRUE),
+    AAPI = sum(aapi_incarcerated, na.rm = TRUE),
+    `Native American` = sum(native_incarcerated, na.rm = TRUE)
+  )
+View(vcc_jailmax)
+
+# Total Population by Racial Groups For Earliest Year of Data
+vcc_jailmin <-
+  jail_racestats %>%
+  filter(year == min(year)) %>%
+  summarize(
+    `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
+    White = sum(white_incarcerated, na.rm = TRUE),
+    Black = sum(black_incarcerated, na.rm = TRUE),
+    Latinx = sum(latinx_incarcerated, na.rm = TRUE),
+    AAPI = sum(aapi_incarcerated, na.rm = TRUE),
+    `Native American` = sum(native_incarcerated, na.rm = TRUE)
+  )
+vcc_jailmin
+
+# Oh no! Unfortunately, there's no data from this year that shows the racial ethnic
+# groups of the inmate population. Despite there being a total population number, 
+# the respective races of that population were not recorded. Calling the `vcc_jailmin`
+# variable returns this message in the console:
+#
+#          Total Incarcerated White Black Latinx AAPI Native American
+#        1             160727     0     0      0    0               0
+#
+# 
+
+
+# rearranging `varcom_jail` to be formatted for ggplot
+melt_vcc_jailmax <-
+  melt(vcc_jailmax, id = c("Year"))
 
 
 
