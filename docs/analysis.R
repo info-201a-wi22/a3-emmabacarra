@@ -3,6 +3,8 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(reshape2)
+library(maps)
+library(mapproj)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
@@ -66,7 +68,7 @@ county_info <-
     metro_area,
     land_area,
   )
-View(county_info)
+# View(county_info)
 
 
 
@@ -101,7 +103,7 @@ jail_sortgender <-
     female_deaths = sum(female_jail_pop_dcrp, na.rm = TRUE),
     male_deaths = sum(male_jail_pop_dcrp, na.rm = TRUE)
   )
-View(jail_sortgender)
+# View(jail_sortgender)
 
 # Annual County Jail Incarceration Statistics By Race
 jail_sortrace <-
@@ -145,7 +147,7 @@ jail_sortrace <-
         )),
     other_incarcerated = sum(other_race_jail_pop, na.rm = TRUE)
   )
-#View(jail_sortrace)
+# View(jail_sortrace)
 
 # Annual State/Federal Prison Incarceration Statistics by Gender
 prison_sortgender <- 
@@ -167,7 +169,7 @@ prison_sortgender <-
     # In-depth gender statistics provided for county jail incarcerations
     # are not provided for records at the state/federal prison level.
   )
-#View(prison_sortgender)
+# View(prison_sortgender)
 
 # Annual State/Federal Prison Incarceration Statistics by Race
 prison_sortrace <- 
@@ -223,7 +225,7 @@ prison_sortrace <-
     other_females = sum(other_race_female_prison_pop, na.rm = TRUE),
     other_males = sum(other_race_male_prison_pop, na.rm = TRUE)
   )
-#View(prison_sortrace)
+# View(prison_sortrace)
 
 
 
@@ -232,9 +234,6 @@ prison_sortrace <-
 # Comparing Incarceration Population in County Jails by Gender
 jail_genderstats <-
   incarceration_trends %>%
-#  filter(
-#    year == max(year) | year == min(year)
-#  ) %>% # used logical operator "OR" to apply multiple arguments
   summarize(
     year,
     county_name,
@@ -260,7 +259,7 @@ jail_genderstats <-
     # total within population that are recently discharged
     total_discharged = total_jail_dis
   )
-View(jail_genderstats)
+# View(jail_genderstats)
 
 
 # Comparing Incarceration Population in County Jails by Race
@@ -306,7 +305,7 @@ jail_racestats <-
     # total within population that are recently discharged
     total_discharged = total_jail_dis
   )
-View(jail_racestats)
+# View(jail_racestats)
 
 
 
@@ -336,7 +335,7 @@ prison_genderadm <-
     
     # no data for total population recently discharged
   )
-View(prison_genderadm)
+# View(prison_genderadm)
 
 
 # Comparing Newly Admitted Inmates in State/Federal Prisons by Race Over Time
@@ -390,7 +389,7 @@ prison_raceadm <-
     other_female_adm = sum(other_race_female_prison_adm, na.rm = TRUE),
     other_male_adm = sum(other_race_male_prison_adm, na.rm = TRUE),
   )
-View(prison_raceadm)
+# View(prison_raceadm)
 
 
 
@@ -407,7 +406,7 @@ totc <-
     `Native American` = native_adm,
     Other = other_adm
   )
-View(totc)
+# View(totc)
 
 melt_totc <- 
   melt(totc, id = c("Year")) %>%
@@ -415,7 +414,7 @@ melt_totc <-
     Race = variable,
     `New Admits` = value
   ) # rearranging `totc` to be formatted for ggplot
-View(melt_totc)
+# View(melt_totc)
 
 ggplot(
   melt_totc, 
@@ -437,7 +436,7 @@ ggplot(
 # ---------- Variable Comparison Chart ----------
 # Intention: compare earliest and most recent year, racial distribution
 
-View(jail_racestats)
+# View(jail_racestats)
 
 # Racial Distribution in Jail For Earliest Year of Data
 vcc_jailmin <-
@@ -477,7 +476,7 @@ vcc_jailmax <-
     AAPI = (sum(aapi_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
     `Native American` = (sum(native_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100
   )
-View(vcc_jailmax)
+# View(vcc_jailmax)
 
 melt_jailmax <- 
   melt(vcc_jailmax, id = c("Year")) %>%
@@ -485,7 +484,7 @@ melt_jailmax <-
     Race = variable,
     Percent = value
   )
-View(melt_jailmax)
+# View(melt_jailmax)
 
 ggplot(
   melt_jailmax,
@@ -500,6 +499,35 @@ ggplot(
 
 # ---------- Map ----------
 
-# map of stats from most recent year showing inmate population
+# map of stats from most recent year showing inmate population,
+# separating by race
+
+us_map <- map_data("state")
+View(us_map)
+
+us_states <- 
+  us_map[!duplicated(us_map$region), ] %>%
+  summarize(
+    state = region, 
+    lat, 
+    long
+    ) 
+View(us_states)
+
+map_jail <-
+  incarceration_trends %>%
+  group_by(state) %>%
+  filter(year == max(year)) %>%
+  summarize(
+    White = sum(white_jail_pop, na.rm = TRUE),
+    Black = sum(black_jail_pop, na.rm = TRUE),
+    Latinx = sum(latinx_jail_pop, na.rm = TRUE),
+    AAPI = sum(aapi_jail_pop, na.rm = TRUE),
+    `Native American` = sum(native_jail_pop, na.rm = TRUE),
+    Other = sum(other_race_jail_pop, na.rm = TRUE)
+  )
+View(map_jail)
+
+
 
 
