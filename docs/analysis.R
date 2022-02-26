@@ -455,6 +455,7 @@ vcc_jailmin <-
   jail_racestats %>%
   filter(year == min(year)) %>%
   summarize(
+    Year = mean(year),
     `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
     White = sum(white_incarcerated, na.rm = TRUE),
     Black = sum(black_incarcerated, na.rm = TRUE),
@@ -469,8 +470,9 @@ vcc_jailmin
 # the respective races of that population were not recorded. Calling the `vcc_jailmin`
 # variable returns this message in the console:
 #
-#          Total Incarcerated White Black Latinx AAPI Native American
-#        1             160727     0     0      0    0               0
+#        Year Total Incarcerated White Black Latinx AAPI Native American
+#      1 1970             160727     0     0      0    0               0
+#
 #
 # Let's compare racial ethnic groups from the most recent year of data...
 
@@ -480,6 +482,7 @@ vcc_jailmax <-
   jail_racestats %>%
   filter(year == max(year)) %>%
   summarize(
+    Year = mean(year),
     `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
     White = sum(white_incarcerated, na.rm = TRUE),
     Black = sum(black_incarcerated, na.rm = TRUE),
