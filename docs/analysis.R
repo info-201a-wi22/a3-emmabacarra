@@ -8,6 +8,7 @@ library(mapproj)
 library(gridExtra)
 library(grid)
 library(lattice)
+library(viridis)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
@@ -507,8 +508,7 @@ ggplot(
 
 us_map <- 
   read.csv("https://github.com/info-201a-wi22/a3-emmabacarra/raw/clone/docs/statelatlong.csv") %>%
-  rename(state = State, lat = Latitude, long = Longitude) %>%
-  summarize(state, lat, long)
+  rename(abbreviation = State, state = City, lat = Latitude, long = Longitude)
 View(us_map)
 
 map_jail <-
@@ -526,11 +526,24 @@ map_jail <-
 map_jail <-left_join(map_jail, us_map, by = "state")
 View(map_jail)
 
-white_map <- select(map_jail, state, White)
+white_map <- select(map_jail, state, White, lat, long)
 View(white_map)
 
-mapdata <- map_data("state") %>%
-  rename(state = region) %>%
+mapdata <- us_map %>%
   left_join(white_map, by = "state")
 View(mapdata)
 # ??? why is it NA??????
+
+white_inmates <-
+  incarceration_trends %>%
+  filter(year == max(year)) %>%
+  group_by(state) %>%
+  summarize(inmates = sum(white_jail_pop, na.rm = TRUE))
+View(white_inmates)
+
+state_map <- 
+  map_data("state") 
+View(state_map)
+
+test <- left_join(white_map, us_map, by = "state")
+View(test)
