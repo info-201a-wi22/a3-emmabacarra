@@ -312,33 +312,27 @@ View(jail_racestats)
 
 # ---------- Comparing Prison Incarceration Statistics ----------
 
-# Comparing Newly Admitted Inmates in State/Federal Prisons by Gender
+# Comparing Newly Admitted Inmates in State/Federal Prisons by Gender Over Time
 prison_genderadm <-
   incarceration_trends %>%
-  filter(
-    year == max(year) | year == min(year)
-  ) %>% # used logical operator "OR" to apply multiple arguments
+  group_by(year) %>%
   summarize(
-    year,
-    county_name,
-    state,
-    
     # total population of inmates within that year
-    total_incarcerated = total_prison_pop,
-    females_incarcerated = female_prison_pop,
-    males_incarcerated = male_prison_pop,
+    total_incarcerated = sum(total_prison_pop, na.rm = TRUE),
+    females_incarcerated = sum(female_prison_pop, na.rm = TRUE),
+    males_incarcerated = sum(male_prison_pop, na.rm = TRUE),
     
     # total within population that are newly admitted
-    total_new_inmates = total_prison_adm,
-    total_pct_increase = total_prison_pop_rate,
+    total_new_inmates = sum(total_prison_adm, na.rm = TRUE),
+    total_pct_increase = sum(total_prison_pop_rate, na.rm = TRUE),
     
     # females in prison
-    new_female_inmates = female_prison_adm,
-    female_pct_increase = female_prison_adm_rate,
+    new_female_inmates = sum(female_prison_adm, na.rm = TRUE),
+    female_pct_increase = sum(female_prison_adm_rate, na.rm = TRUE),
     
     # males in prison
-    new_male_inmates = male_prison_adm,
-    male_pct_increase = male_prison_adm_rate
+    new_male_inmates = sum(male_prison_adm, na.rm = TRUE),
+    male_pct_increase = sum(male_prison_adm_rate, na.rm = TRUE)
     
     # no data for total population recently discharged
     
@@ -346,62 +340,56 @@ prison_genderadm <-
 View(prison_genderadm)
 
 
-# Comparing Newly Admitted Inmates in State/Federal Prisons by Race
+# Comparing Newly Admitted Inmates in State/Federal Prisons by Race Over Time
 prison_raceadm <-
   incarceration_trends %>%
-  filter(
-    year == max(year) | year == min(year)
-  ) %>% # used logical operator "OR" to apply multiple arguments
+  group_by(year) %>%
   summarize(
-    year,
-    county_name,
-    state,
-    
     # total population of inmates within that year
-    total_incarcerated = total_prison_pop,
-    total_new_inmates = total_prison_adm,
-    total_pct_increase = total_prison_adm_rate,
+    total_incarcerated = sum(total_prison_pop, na.rm = TRUE),
+    total_new_inmates = sum(total_prison_adm, na.rm = TRUE),
+    total_pct_increase = sum(total_prison_adm_rate, na.rm = TRUE),
     
     # White
-    white_incarcerated = white_prison_pop,
-    white_adm = white_prison_adm,
-    white_admrate = white_prison_adm_rate,
-    white_female_adm = white_female_prison_adm,
-    white_male_adm = white_female_prison_adm,
+    white_incarcerated = sum(white_prison_pop, na.rm = TRUE),
+    white_adm = sum(white_prison_adm, na.rm = TRUE),
+    white_admrate = sum(white_prison_adm_rate, na.rm = TRUE),
+    white_female_adm = sum(white_female_prison_adm, na.rm = TRUE),
+    white_male_adm = sum(white_female_prison_adm, na.rm = TRUE),
     
     # Black
-    black_incarcerated = black_prison_pop,
-    black_adm = black_prison_adm,
-    black_admrate = black_prison_adm_rate,
-    black_female_adm = black_female_prison_adm,
-    black_male_adm = black_male_prison_adm,
+    black_incarcerated = sum(black_prison_pop, na.rm = TRUE),
+    black_adm = sum(black_prison_adm, na.rm = TRUE),
+    black_admrate = sum(black_prison_adm_rate, na.rm = TRUE),
+    black_female_adm = sum(black_female_prison_adm, na.rm = TRUE),
+    black_male_adm = sum(black_male_prison_adm, na.rm = TRUE),
     
     # Latinx
-    latinx_incarcerated = latinx_prison_pop,
-    latinx_adm = latinx_prison_adm,
-    latinx_admrate = latinx_prison_adm_rate,
-    latinx_female_adm = latinx_female_prison_adm,
-    latinx_male_adm = latinx_male_prison_adm,
+    latinx_incarcerated = sum(latinx_prison_pop, na.rm = TRUE),
+    latinx_adm = sum(latinx_prison_adm, na.rm = TRUE),
+    latinx_admrate = sum(latinx_prison_adm_rate, na.rm = TRUE),
+    latinx_female_adm = sum(latinx_female_prison_adm, na.rm = TRUE),
+    latinx_male_adm = sum(latinx_male_prison_adm, na.rm = TRUE),
     
     # AAPI
-    aapi_incarcerated = aapi_prison_pop,
-    aapi_adm = aapi_prison_adm,
-    aapi_admrate = aapi_prison_adm_rate,
-    aapi_female_adm = aapi_female_prison_adm,
-    aapi_male_adm = aapi_male_prison_adm,
+    aapi_incarcerated = sum(aapi_prison_pop, na.rm = TRUE),
+    aapi_adm = sum(aapi_prison_adm, na.rm = TRUE),
+    aapi_admrate = sum(aapi_prison_adm_rate, na.rm = TRUE),
+    aapi_female_adm = sum(aapi_female_prison_adm, na.rm = TRUE),
+    aapi_male_adm = sum(aapi_male_prison_adm, na.rm = TRUE),
     
     # Native American
-    native_incarcerated = native_prison_pop,
-    native_adm = native_prison_adm,
-    native_admrate = native_prison_adm_rate,
-    native_female_adm = native_female_prison_adm,
-    native_male_adm = native_male_prison_adm,
+    native_incarcerated = sum(native_prison_pop, na.rm = TRUE),
+    native_adm = sum(native_prison_adm, na.rm = TRUE),
+    native_admrate = sum(native_prison_adm_rate, na.rm = TRUE),
+    native_female_adm = sum(native_female_prison_adm, na.rm = TRUE),
+    native_male_adm = sum(native_male_prison_adm, na.rm = TRUE),
     
     # Other
-    other_incarcerated = other_race_prison_pop,
-    other_adm = other_race_prison_adm,
-    other_female_adm = other_race_female_prison_adm,
-    other_male_adm = other_race_male_prison_adm
+    other_incarcerated = sum(other_race_prison_pop, na.rm = TRUE),
+    other_adm = sum(other_race_prison_adm, na.rm = TRUE),
+    other_female_adm = sum(other_race_female_prison_adm, na.rm = TRUE),
+    other_male_adm = sum(other_race_male_prison_adm, na.rm = TRUE),
   )
 View(prison_raceadm)
 
@@ -409,8 +397,10 @@ View(prison_raceadm)
 
 # ---------- Trends Over Time Chart ----------
 
+View(prison_raceadm)
+
 totc <- 
-  jail_sortgender %>%
+  prison_raceadm %>%
   summarize(
     Year = year,
     Total = total_incarcerated,
