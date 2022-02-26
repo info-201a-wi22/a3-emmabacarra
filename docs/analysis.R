@@ -335,7 +335,6 @@ prison_genderadm <-
     male_pct_increase = sum(male_prison_adm_rate, na.rm = TRUE)
     
     # no data for total population recently discharged
-    
   )
 View(prison_genderadm)
 
@@ -397,15 +396,20 @@ View(prison_raceadm)
 
 # ---------- Trends Over Time Chart ----------
 
+# new admits by race over time
+
 View(prison_raceadm)
 
 totc <- 
   prison_raceadm %>%
   summarize(
     Year = year,
-    Total = total_incarcerated,
-    Females = females_incarcerated,
-    Males = males_incarcerated
+    White = white_adm,
+    Black = black_adm,
+    Latinx = latinx_adm,
+    AAPI = aapi_adm,
+    `Native American` = native_adm,
+    Other = other_adm
   )
 View(totc)
 
@@ -413,8 +417,8 @@ View(totc)
 melt_totc <- 
   melt(totc, id = c("Year")) %>%
   rename(
-    Gender = variable,
-    Population = value
+    Race = variable,
+    `New Admits` = value
   )
 View(melt_totc)
 
@@ -422,12 +426,16 @@ ggplot(
   melt_totc, 
   aes(
     x = Year, 
-    y = Population, 
-    group = Gender, 
-    color = Gender
+    y = `New Admits`, 
+    group = Race, 
+    color = Race
   )) +
   geom_line() +
-  ggtitle("Incarceration Populations By Gender")
+  ggtitle("New Admits by Race Over Time")
+
+# Disclaimer: for at least the first 10 years, the inmates' races were not identified
+# and recorded, which is why Latinx, AAPI, Native American, and Other start out at 0.
+# There are also no recordings of racial groups in the years 2017 and 2018.
 
 
 
