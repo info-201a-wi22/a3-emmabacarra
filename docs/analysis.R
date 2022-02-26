@@ -5,6 +5,9 @@ library(tidyr)
 library(reshape2)
 library(maps)
 library(mapproj)
+library(gridExtra)
+library(grid)
+library(lattice)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
@@ -511,7 +514,7 @@ us_states <-
     state = region, 
     lat, 
     long
-    ) 
+  )
 View(us_states)
 
 map_jail <-
@@ -528,6 +531,7 @@ map_jail <-
   )
 View(map_jail)
 
-
-
+joined <-
+  left_join(map_jail, us_states, by = "state")
+View(joined)
 
