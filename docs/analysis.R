@@ -442,15 +442,11 @@ ggplot(
 
 
 # ---------- Variable Comparison Chart ----------
-# percentages of races that make up incarcerated population
-# x = race, y = percent
-# vertical bar chart?
-# left bar shows 1970, right bar shows 2018 (diff color for year)
-# 2 bars per race
+# Intention: compare earliest and most recent year, racial distribution
 
 View(jail_racestats)
 
-# Total Population by Racial Groups For Earliest Year of Data
+# Racial Distribution For Earliest Year of Data
 vcc_jailmin <-
   jail_racestats %>%
   filter(year == min(year)) %>%
@@ -477,7 +473,7 @@ vcc_jailmin
 # Let's compare racial ethnic groups from the most recent year of data...
 
 
-# Total Population by Racial Groups For Most Recent Year of Data
+# Racial Distribution For Most Recent Year of Data
 vcc_jailmax <-
   jail_racestats %>%
   filter(year == max(year)) %>%
