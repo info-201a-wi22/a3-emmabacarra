@@ -450,20 +450,6 @@ ggplot(
 
 View(jail_racestats)
 
-# Total Population by Racial Groups For Most Recent Year of Data
-vcc_jailmax <-
-  jail_racestats %>%
-  filter(year == max(year)) %>%
-  summarize(
-    `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
-    White = sum(white_incarcerated, na.rm = TRUE),
-    Black = sum(black_incarcerated, na.rm = TRUE),
-    Latinx = sum(latinx_incarcerated, na.rm = TRUE),
-    AAPI = sum(aapi_incarcerated, na.rm = TRUE),
-    `Native American` = sum(native_incarcerated, na.rm = TRUE)
-  )
-View(vcc_jailmax)
-
 # Total Population by Racial Groups For Earliest Year of Data
 vcc_jailmin <-
   jail_racestats %>%
@@ -486,7 +472,23 @@ vcc_jailmin
 #          Total Incarcerated White Black Latinx AAPI Native American
 #        1             160727     0     0      0    0               0
 #
-# 
+# Let's compare racial ethnic groups from the most recent year of data...
+
+
+# Total Population by Racial Groups For Most Recent Year of Data
+vcc_jailmax <-
+  jail_racestats %>%
+  filter(year == max(year)) %>%
+  summarize(
+    `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
+    White = sum(white_incarcerated, na.rm = TRUE),
+    Black = sum(black_incarcerated, na.rm = TRUE),
+    Latinx = sum(latinx_incarcerated, na.rm = TRUE),
+    AAPI = sum(aapi_incarcerated, na.rm = TRUE),
+    `Native American` = sum(native_incarcerated, na.rm = TRUE)
+  )
+View(vcc_jailmax)
+
 
 
 # rearranging `varcom_jail` to be formatted for ggplot
