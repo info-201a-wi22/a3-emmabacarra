@@ -2,8 +2,7 @@ rm(list = ls())
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(hrbrthemes)
-library(viridis)
+library(reshape2)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
@@ -420,12 +419,15 @@ totc <-
     females_incarcerated,
     males_incarcerated
   )
-View(totc)
 
-ggplot(data = totc, aes(x = year)) + 
-  geom_line(aes(y = total_incarcerated, color = "Total Incarcerated")) +
-  geom_line(aes(y = females_incarcerated, color = "Female")) +
-  geom_line(aes(y = males_incarcerated, color "Male"))
+# rearranging `totc` to be formatted for ggplot
+melt_totc <- melt(totc, id = c("year"))
+View(melt_totc)
+
+#ggplot(data = totc, aes(x = year)) + 
+#  geom_line(aes(y = total_incarcerated, color = "Total Incarcerated")) +
+#  geom_line(aes(y = females_incarcerated, color = "Female")) +
+#  geom_line(aes(y = males_incarcerated, color "Male"))
 
 
 
