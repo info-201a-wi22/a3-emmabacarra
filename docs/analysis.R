@@ -492,12 +492,10 @@ melt_jailmax <-
 
 ggplot(
   melt_jailmax,
-  aes(
-    x = Race,
-    y = Percent
-  )) +
+  aes(x = Race, y = Percent)) +
   geom_bar(stat = "identity") +
-  ggtitle(paste("Racial Distribution of Incarcerated Population (", melt_jailmax[1, "Year"], ")", sep = ""))
+  ggtitle(paste("Racial Distribution of Incarcerated Population (", melt_jailmax[1, "Year"], ")", sep = "")
+)
 
 
 
