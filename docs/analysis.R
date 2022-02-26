@@ -532,6 +532,10 @@ mapdata <- us_map %>%
 View(mapdata)
 # ??? why is it NA??????
 
+# facet_wrap(x ~ y), grid of plots
+# x is variable to group x axis on
+# y is variable to group y axis on
+
 white_inmates <-
   incarceration_trends %>%
   filter(year == max(year)) %>%
