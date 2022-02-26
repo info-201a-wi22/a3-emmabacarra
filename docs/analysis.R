@@ -495,7 +495,7 @@ melt_jailmax <-
   melt(vcc_jailmax, id = c("Year")) %>%
   rename(
     Race = variable,
-    `Percent` = value
+    Percent = value
   )
 View(melt_jailmax)
 
@@ -503,7 +503,7 @@ ggplot(
   melt_jailmax,
   aes(
     x = Race,
-    y = `Percent`
+    y = Percent
   )) +
   geom_bar(stat = "identity") +
   ggtitle(paste("Racial Distribution of Incarcerated Population (", melt_jailmax[1, "Year"], ")", sep = ""))
