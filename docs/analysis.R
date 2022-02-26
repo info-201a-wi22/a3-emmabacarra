@@ -505,13 +505,21 @@ ggplot(
 # map of stats from most recent year showing inmate population,
 # separating by race
 
-us_map <- map_data("state")
+us_map <- 
+  read.csv("https://github.com/info-201a-wi22/a3-emmabacarra/raw/clone/docs/statelatlong.csv") %>%
+  rename(
+    state = State,
+    lat = Latitude,
+    long = Longitude
+  )
 View(us_map)
 
+unique(us_map$region)
+
 us_states <- 
-  us_map[!duplicated(us_map$region), ] %>%
+  us_map %>%
   summarize(
-    state = region, 
+    state, 
     lat, 
     long
   )
@@ -529,9 +537,8 @@ map_jail <-
     `Native American` = sum(native_jail_pop, na.rm = TRUE),
     Other = sum(other_race_jail_pop, na.rm = TRUE)
   )
+
+map_jail <-left_join(map_jail, us_states, by = "state")
 View(map_jail)
 
-joined <-
-  left_join(map_jail, us_states, by = "state")
-View(joined)
 
