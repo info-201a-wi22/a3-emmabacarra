@@ -483,21 +483,35 @@ vcc_jailmax <-
   filter(year == max(year)) %>%
   summarize(
     Year = mean(year),
-    `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
-    White = sum(white_incarcerated, na.rm = TRUE),
-    Black = sum(black_incarcerated, na.rm = TRUE),
-    Latinx = sum(latinx_incarcerated, na.rm = TRUE),
-    AAPI = sum(aapi_incarcerated, na.rm = TRUE),
-    `Native American` = sum(native_incarcerated, na.rm = TRUE)
+    White = (sum(white_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
+    Black = (sum(black_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
+    Latinx = (sum(latinx_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
+    AAPI = (sum(aapi_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
+    `Native American` = (sum(native_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100
   )
 View(vcc_jailmax)
 
+melt_jailmax <- 
+  melt(vcc_jailmax, id = c("Year")) %>%
+  rename(
+    Race = variable,
+    `Percent` = value
+  )
+View(melt_jailmax)
 
-
-# rearranging `varcom_jail` to be formatted for ggplot
-melt_vcc_jailmax <-
-  melt(vcc_jailmax, id = c("Year"))
-
+ggplot(
+  melt_jailmax,
+  aes(
+    x = Race,
+    y = `Percent`
+  )) +
+  geom_bar(stat = "identity") +
+  ggtitle(paste(
+      "Racial Distribution of Incarcerated Population (", 
+      melt_jailmax[1, "Year"], 
+      ")", 
+      sep = ""
+      ))
 
 
 
