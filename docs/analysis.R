@@ -408,26 +408,35 @@ View(prison_raceadm)
 
 
 # ---------- Trends Over Time Chart ----------
-# population rate per gender & total 
-# x-axis: time, y-axis: population
 
 totc <- 
   jail_sortgender %>%
   summarize(
-    year,
-    total_incarcerated,
-    females_incarcerated,
-    males_incarcerated
+    Year = year,
+    Total = total_incarcerated,
+    Females = females_incarcerated,
+    Males = males_incarcerated
   )
+View(totc)
 
 # rearranging `totc` to be formatted for ggplot
-melt_totc <- melt(totc, id = c("year"))
+melt_totc <- 
+  melt(totc, id = c("Year")) %>%
+  rename(
+    Gender = variable,
+    Population = value
+  )
 View(melt_totc)
 
-#ggplot(data = totc, aes(x = year)) + 
-#  geom_line(aes(y = total_incarcerated, color = "Total Incarcerated")) +
-#  geom_line(aes(y = females_incarcerated, color = "Female")) +
-#  geom_line(aes(y = males_incarcerated, color "Male"))
+ggplot(
+  melt_totc, 
+  aes(
+    x = Year, 
+    y = Population, 
+    group = Gender, 
+    color = Gender
+  )) +
+  geom_line()
 
 
 
