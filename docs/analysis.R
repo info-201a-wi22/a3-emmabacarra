@@ -436,7 +436,8 @@ ggplot(
     group = Gender, 
     color = Gender
   )) +
-  geom_line()
+  geom_line() +
+  ggtitle("Incarceration Populations By Gender")
 
 
 
