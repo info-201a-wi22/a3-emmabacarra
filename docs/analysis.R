@@ -452,22 +452,21 @@ vcc_jailmin <-
   filter(year == min(year)) %>%
   summarize(
     Year = mean(year),
-    `Total Incarcerated` = sum(total_incarcerated, na.rm = TRUE),
-    White = sum(white_incarcerated, na.rm = TRUE),
-    Black = sum(black_incarcerated, na.rm = TRUE),
-    Latinx = sum(latinx_incarcerated, na.rm = TRUE),
-    AAPI = sum(aapi_incarcerated, na.rm = TRUE),
-    `Native American` = sum(native_incarcerated, na.rm = TRUE)
+    White = (sum(white_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    Black = (sum(black_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    Latinx = (sum(latinx_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    AAPI = (sum(aapi_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    `Native American` = (sum(native_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100
   )
 vcc_jailmin
 
 # Oh no! Unfortunately, there's no data from this year that shows the racial ethnic
-# groups of the inmate population. Despite there being a total population number, 
-# the respective races of that population were not recorded. Calling the `vcc_jailmin`
-# variable returns this message in the console:
+# groups of the inmate population. Although a total population number was recorded
+# in `jail_racestats` for the earliest year, the respective races of that population
+# was not. Calling the `vcc_jailmin` variable returns this message in the console:
 #
-#        Year Total Incarcerated White Black Latinx AAPI Native American
-#      1 1970             160727     0     0      0    0               0
+#        Year White Black Latinx AAPI Native American
+#      1 1970     0     0      0    0               0
 #
 #
 # Let's compare racial ethnic groups from the most recent year of data...
@@ -479,11 +478,11 @@ vcc_jailmax <-
   filter(year == max(year)) %>%
   summarize(
     Year = mean(year),
-    White = (sum(white_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
-    Black = (sum(black_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
-    Latinx = (sum(latinx_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
-    AAPI = (sum(aapi_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100,
-    `Native American` = (sum(native_incarcerated, na.rm = TRUE)/sum(total_incarcerated, na.rm = TRUE)) * 100
+    White = (sum(white_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    Black = (sum(black_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    Latinx = (sum(latinx_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    AAPI = (sum(aapi_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
+    `Native American` = (sum(native_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100
   )
 View(vcc_jailmax)
 
