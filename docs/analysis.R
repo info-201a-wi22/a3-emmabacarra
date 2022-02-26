@@ -507,23 +507,9 @@ ggplot(
 
 us_map <- 
   read.csv("https://github.com/info-201a-wi22/a3-emmabacarra/raw/clone/docs/statelatlong.csv") %>%
-  rename(
-    state = State,
-    lat = Latitude,
-    long = Longitude
-  )
+  rename(state = State, lat = Latitude, long = Longitude) %>%
+  summarize(state, lat, long)
 View(us_map)
-
-unique(us_map$region)
-
-us_states <- 
-  us_map %>%
-  summarize(
-    state, 
-    lat, 
-    long
-  )
-View(us_states)
 
 map_jail <-
   incarceration_trends %>%
@@ -537,8 +523,14 @@ map_jail <-
     `Native American` = sum(native_jail_pop, na.rm = TRUE),
     Other = sum(other_race_jail_pop, na.rm = TRUE)
   )
-
-map_jail <-left_join(map_jail, us_states, by = "state")
+map_jail <-left_join(map_jail, us_map, by = "state")
 View(map_jail)
 
+white_map <- select(map_jail, state, White)
+View(white_map)
 
+mapdata <- map_data("state") %>%
+  rename(state = region) %>%
+  left_join(white_map, by = "state")
+View(mapdata)
+# ??? why is it NA??????
