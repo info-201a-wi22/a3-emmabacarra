@@ -1,3 +1,5 @@
+# ---------- General Overview of `incarceration_trends` and `jail_jurisdiction` ----------
+
 For this assignment, I will be comparing data drawn from `incarceration_trends` and  
 `jail_jurisdiction`, observing any differences between demographics such as race and
 gender. The information recorded in `incarceration_trends` is based on incarcerated
@@ -9,5 +11,78 @@ Jail refers to individuals who are held in lawful custody (i.e. have been convic
 of a minor offense or are waiting to go on trial for their accusation) for a short
 period of time. The word jail implies that it is a smaller, local facility. Prison
 refers to individuals who have been convicted of more serious offenses and are
-sentenced to longer terms. Prison can also be referred to as "state prison" or 
+sentenced to longer terms. Prison can also be referred to as "state prison" or
 "federal prison", and refers to a larger facility of confinement than a county jail.
+
+
+# ---------- Annual Total Incarcerations ----------
+
+This section contains charts that show incarceration statistics for gender and race
+in jail and prison annually. The first columns include the numbers of the general
+population, which can be compared to the number of incarcerated individuals and
+provided demographics of that population.
+
+Charts that compare gender (either for jail or prison) include total numbers of each
+gender and age categories. `jail_sortgender` contains more data than its
+`prison_sortgender` counterpart, as more data was provided by the Vera Institute. The
+data is divided up not only by gender but also by "juvenile" or "adulthood".
+
+Similarly, `jail_sortrace` and `prison_sortrace` compare numbers categorized by race.
+The total incarcerated population is grouped by race, providing a total population
+and individuals who are between the ages of 15 to 64. `prison_sortrace` was able to
+provide further information by specifying the gender of individuals along with race.
+
+
+# ---------- Comparing Jail Incarceration Statistics ----------
+
+`jail_genderstats` summarizes information from `incarceration_trends` which compares
+new admissions to jail and the population percent increase, per their respected gender.
+`jail_racestats` similarly compares incarcerated individuals by race, and takes data
+from the earliest recorded year and the latest recorded year. Numbers include the
+percent change (either increase or decrease) in population numbers for racial groups.
+Also includes the number of individuals discharged that year.
+
+
+# ---------- Comparing Prison Incarceration Statistics ----------
+
+`prison_genderadm` compares newly admitted inmates in state/federal prisons by gender
+over time. Grouped by year, the chart shows the sum of every new inmate in the country
+and the percent increase along with it. `prison_raceadm` compares newly admitted inmates
+in state/federal prisons by race over time. The chart takes into account total
+incarcerated numbers for each race, along with general admission numbers & rates and
+female/male admits & admission rates.
+
+
+# ---------- Trends Over Time Chart ----------
+
+This graph compares the sum of inmates in the country by race over time. I chose to
+compare this because I thought it would be important to see the racial distribution of
+the inmate population. A lot of factors play into these numbers, including minorities
+who suffer from racism and false accusations, so it's interesting to see how that
+impacts the incarcerated populations compared to white individuals. Even though black
+individuals make up a lower percentage of racial demographics in the U.S. compared to
+their white counterparts, their incarcerated population is still similarly as high.
+
+
+# ---------- Variable Comparison Chart ----------
+
+This graph compares the racial distribution in jail for the most recent year of data.
+Disclaimer: there are no recordings of racial groups in the years 2017 and 2018 for
+Latinx, AAPI, Native American, and other. Despite that, the numbers have a similar
+pattern to the trends over time chart; black individuals are still comparatively high
+than other minorities, despite the overall racial distribution of races in the U.S.
+Second to white individuals, which made up ~47% of the incarcerated population, black
+individuals made up ~34% while other minorities are much lower (referencing to other
+years where the percentages of other minority groups were made available).
+
+
+# ---------- Map ----------
+
+This map shows how races are distributed geographically from 2010. I picked this year
+instead of the most recent year of recorded data because the numbers between racial
+groups existed and were more comparable (frame of reference was the trends over time
+chart). I divided each map into racial groups to make comparing between them easy.
+Although numbers for AAPI and Native Americans are higher, they're still relatively
+low compared to white, black, and latinx individuals. From the map, it appears that
+those incarcerations are more prevalent towards the south, especially in states like
+Texas and Florida. Higher numbers also showed up in California. 

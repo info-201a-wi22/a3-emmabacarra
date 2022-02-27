@@ -5,6 +5,7 @@ library(ggmap)
 library(maps)
 library(mapdata)
 library(tidyr)
+library(reshape2)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
@@ -483,7 +484,7 @@ ggplot(
 
 map_jail <-
   incarceration_trends %>%
-  filter(year == max(year)) %>%
+  filter(year == 2010) %>%
   group_by(state) %>%
   summarize(
     White = sum(white_jail_pop, na.rm = TRUE),
