@@ -497,20 +497,6 @@ ggplot(
 
 # ---------- Map ----------
 
-# map of stats from most recent year showing inmate population,
-# separating by race
-
-#us_map <- 
-#  read.csv("https://github.com/info-201a-wi22/a3-emmabacarra/raw/clone/docs/statelatlong.csv") %>%
-#  rename(state = City, abbreviation = State, lat = Latitude, long = Longitude)
-#View(us_map)
-
-# facet_wrap(x ~ y), grid of plots
-# x is variable to group x axis on
-# y is variable to group y axis on
-
-# group indicates which state each point belongs to
-
 map_jail <-
   incarceration_trends %>%
   filter(year == max(year)) %>%
