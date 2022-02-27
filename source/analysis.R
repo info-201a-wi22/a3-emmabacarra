@@ -512,7 +512,8 @@ map_jail <-
   rename(Race = variable, Population = value)
 head(map_jail)
 
-us_states <- map_data("state") %>%
+us_states <- 
+  map_data("state") %>%
   unite(polyname, region) %>%
   left_join(state.fips, by = "polyname") %>%
   rename(name = polyname, state = abb)
