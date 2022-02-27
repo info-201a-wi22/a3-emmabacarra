@@ -12,13 +12,6 @@ View(incarceration_trends)
 jail_jurisdiction <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends_jail_jurisdiction.csv")
 View(jail_jurisdiction)
 
-# For this assignment, I will be comparing data drawn from `incarceration_trends` and  
-# `jail_jurisdiction`, observing any differences between demographics such as race and 
-# gender. The information recorded in `incarceration_trends` is based on incarcerated 
-# populations & the surrounding areas on a county-level basis. `jail_jurisdiction` is
-# based on incarcerated populations in local county jails.
-
-
 
 # ---------- General Overview of `incarceration_trends` and `jail_jurisdiction` ----------
 
@@ -29,14 +22,6 @@ paste("There are", obs_counties, "observations and", nfeats_counties, "features 
 obs_jurisdiction <- nrow(jail_jurisdiction)
 nfeats_jurisdiction <- ncol(jail_jurisdiction)
 paste("There are", obs_jurisdiction, "observations and", nfeats_jurisdiction, "features (columns) in `jail_jurisdiction`.")
-
-# Note:
-# Jail refers to individuals who are held in lawful custody (i.e. have been convicted
-# of a minor offense or are waiting to go on trial for their accusation) for a short
-# period of time. The word jail implies that it is a smaller, local facility. Prison
-# refers to individuals who have been convicted of more serious offenses and are
-# sentenced to longer terms. Prison can also be referred to as "state prison" or 
-# "federal prison", and refers to a larger facility of confinement than a county jail.
 
 
 colnames(incarceration_trends)
