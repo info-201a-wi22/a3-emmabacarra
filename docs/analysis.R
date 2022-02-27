@@ -1,14 +1,10 @@
 rm(list = ls())
 library(dplyr)
 library(ggplot2)
-library(tidyr)
-library(reshape2)
+library(ggmap)
 library(maps)
-library(mapproj)
-library(gridExtra)
-library(grid)
-library(lattice)
-library(viridis)
+library(mapdata)
+library(tidyr)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
 View(incarceration_trends)
@@ -504,15 +500,21 @@ ggplot(
 # map of stats from most recent year showing inmate population,
 # separating by race
 
-us_map <- 
-  read.csv("https://github.com/info-201a-wi22/a3-emmabacarra/raw/clone/docs/statelatlong.csv") %>%
-  rename(abbreviation = State, state = City, lat = Latitude, long = Longitude)
-View(us_map)
+#us_map <- 
+#  read.csv("https://github.com/info-201a-wi22/a3-emmabacarra/raw/clone/docs/statelatlong.csv") %>%
+#  rename(state = City, abbreviation = State, lat = Latitude, long = Longitude)
+#View(us_map)
+
+# facet_wrap(x ~ y), grid of plots
+# x is variable to group x axis on
+# y is variable to group y axis on
+
+# group indicates which state each point belongs to
 
 map_jail <-
   incarceration_trends %>%
-  group_by(state) %>%
   filter(year == max(year)) %>%
+  group_by(state) %>%
   summarize(
     White = sum(white_jail_pop, na.rm = TRUE),
     Black = sum(black_jail_pop, na.rm = TRUE),
@@ -520,32 +522,31 @@ map_jail <-
     AAPI = sum(aapi_jail_pop, na.rm = TRUE),
     `Native American` = sum(native_jail_pop, na.rm = TRUE),
     Other = sum(other_race_jail_pop, na.rm = TRUE)
-  )
-map_jail <-left_join(map_jail, us_map, by = "state")
+  ) %>%
+  melt(id = c("state")) %>%
+  rename(Race = variable, Population = value)
 View(map_jail)
 
-white_map <- select(map_jail, state, White, lat, long)
-View(white_map)
+us_states <- map_data("state") %>%
+  unite(polyname, region) %>%
+  left_join(state.fips, by = "polyname") %>%
+  rename(name = polyname, state = abb)
 
-mapdata <- us_map %>%
-  left_join(white_map, by = "state")
-View(mapdata)
-# ??? why is it NA??????
+state_jail_join <- 
+  us_states %>%
+  left_join(map_jail, by = "state")
 
-# facet_wrap(x ~ y), grid of plots
-# x is variable to group x axis on
-# y is variable to group y axis on
+ggplot(state_jail_join) +
+  geom_polygon(
+    mapping = aes(
+      x = long, 
+      y = lat, 
+      group = group, 
+      fill = `Population`
+    )
+  ) +
+  coord_map() +
+  scale_fill_continuous(high = "#fff44f", low = "#034746") +
+  labs(fill = "Population") +
+  facet_grid(Race ~ .)
 
-white_inmates <-
-  incarceration_trends %>%
-  filter(year == max(year)) %>%
-  group_by(state) %>%
-  summarize(inmates = sum(white_jail_pop, na.rm = TRUE))
-View(white_inmates)
-
-state_map <- 
-  map_data("state") 
-View(state_map)
-
-test <- left_join(white_map, us_map, by = "state")
-View(test)
