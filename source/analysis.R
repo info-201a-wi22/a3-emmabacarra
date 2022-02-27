@@ -68,7 +68,7 @@ county_info <-
     metro_area,
     land_area,
   )
-# View(county_info)
+head(county_info)
 
 
 
@@ -103,7 +103,7 @@ jail_sortgender <-
     female_deaths = sum(female_jail_pop_dcrp, na.rm = TRUE),
     male_deaths = sum(male_jail_pop_dcrp, na.rm = TRUE)
   )
-# View(jail_sortgender)
+head(jail_sortgender)
 
 # Annual County Jail Incarceration Statistics By Race
 jail_sortrace <-
@@ -147,7 +147,7 @@ jail_sortrace <-
         )),
     other_incarcerated = sum(other_race_jail_pop, na.rm = TRUE)
   )
-# View(jail_sortrace)
+head(jail_sortrace)
 
 # Annual State/Federal Prison Incarceration Statistics by Gender
 prison_sortgender <- 
@@ -169,7 +169,7 @@ prison_sortgender <-
     # In-depth gender statistics provided for county jail incarcerations
     # are not provided for records at the state/federal prison level.
   )
-# View(prison_sortgender)
+head(prison_sortgender)
 
 # Annual State/Federal Prison Incarceration Statistics by Race
 prison_sortrace <- 
@@ -225,7 +225,7 @@ prison_sortrace <-
     other_females = sum(other_race_female_prison_pop, na.rm = TRUE),
     other_males = sum(other_race_male_prison_pop, na.rm = TRUE)
   )
-# View(prison_sortrace)
+head(prison_sortrace)
 
 
 
@@ -259,7 +259,7 @@ jail_genderstats <-
     # total within population that are recently discharged
     total_discharged = total_jail_dis
   )
-# View(jail_genderstats)
+head(jail_genderstats)
 
 
 # Comparing Incarceration Population in County Jails by Race
@@ -305,7 +305,7 @@ jail_racestats <-
     # total within population that are recently discharged
     total_discharged = total_jail_dis
   )
-# View(jail_racestats)
+head(jail_racestats)
 
 
 
@@ -335,7 +335,7 @@ prison_genderadm <-
     
     # no data for total population recently discharged
   )
-# View(prison_genderadm)
+head(prison_genderadm)
 
 
 # Comparing Newly Admitted Inmates in State/Federal Prisons by Race Over Time
@@ -389,7 +389,7 @@ prison_raceadm <-
     other_female_adm = sum(other_race_female_prison_adm, na.rm = TRUE),
     other_male_adm = sum(other_race_male_prison_adm, na.rm = TRUE),
   )
-# View(prison_raceadm)
+head(prison_raceadm)
 
 
 
@@ -406,7 +406,7 @@ totc <-
     `Native American` = native_adm,
     Other = other_adm
   )
-# View(totc)
+head(totc)
 
 melt_totc <- 
   melt(totc, id = c("Year")) %>%
@@ -414,7 +414,7 @@ melt_totc <-
     Race = variable,
     `New Admits` = value
   ) # rearranging `totc` to be formatted for ggplot
-# View(melt_totc)
+head(melt_totc)
 
 ggplot(
   melt_totc, 
@@ -434,9 +434,8 @@ ggplot(
 
 
 # ---------- Variable Comparison Chart ----------
-# Intention: compare earliest and most recent year, racial distribution
 
-# View(jail_racestats)
+head(jail_racestats)
 
 # Racial Distribution in Jail For Earliest Year of Data
 vcc_jailmin <-
@@ -476,7 +475,7 @@ vcc_jailmax <-
     AAPI = (sum(aapi_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100,
     `Native American` = (sum(native_incarcerated, na.rm = TRUE) / sum(total_incarcerated, na.rm = TRUE)) * 100
   )
-# View(vcc_jailmax)
+head(vcc_jailmax)
 
 melt_jailmax <- 
   melt(vcc_jailmax, id = c("Year")) %>%
@@ -484,7 +483,7 @@ melt_jailmax <-
     Race = variable,
     Percent = value
   )
-# View(melt_jailmax)
+head(melt_jailmax)
 
 ggplot(
   melt_jailmax,
@@ -511,7 +510,7 @@ map_jail <-
   ) %>%
   melt(id = c("state")) %>%
   rename(Race = variable, Population = value)
-View(map_jail)
+head(map_jail)
 
 us_states <- map_data("state") %>%
   unite(polyname, region) %>%
