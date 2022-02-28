@@ -521,7 +521,7 @@ ggplot(state_jail_join) +
   scale_fill_continuous(high = "#fff44f", low = "#034746") +
   facet_grid(Race ~ .) + # creates maps for each race
   labs(fill = "Population") +
-  ggtitle(paste("Racial Distribution in Jail (", max(incarceration_trends$year), ")", sep = ""))
+  ggtitle(paste("Racial Distribution in Jail (2010)"))
 
 
           
