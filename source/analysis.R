@@ -1,4 +1,3 @@
-rm(list = ls())
 library(dplyr)
 library(ggplot2)
 library(ggmap)
@@ -6,12 +5,13 @@ library(maps)
 library(mapdata)
 library(tidyr)
 library(reshape2)
+library(rmarkdown)
 
 incarceration_trends <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends.csv")
-View(incarceration_trends)
+#View(incarceration_trends)
 
 jail_jurisdiction <- read.csv("https://github.com/vera-institute/incarceration-trends/raw/master/incarceration_trends_jail_jurisdiction.csv")
-View(jail_jurisdiction)
+#View(jail_jurisdiction)
 
 
 # ---------- General Overview of `incarceration_trends` and `jail_jurisdiction` ----------

@@ -1,3 +1,8 @@
+```{r include = FALSE, message = FALSE}
+source("../source/analysis.R")
+```
+
+
 # ---------- General Overview of `incarceration_trends` and `jail_jurisdiction` ----------
 
 For this assignment, I will be comparing data drawn from `incarceration_trends` and  
@@ -15,6 +20,12 @@ sentenced to longer terms. Prison can also be referred to as "state prison" or
 "federal prison", and refers to a larger facility of confinement than a county jail.
 
 
+This table summarizes general information about each county:
+```{r echo = FALSE, message = FALSE}
+head(county_info)
+```
+
+
 # ---------- Annual Total Incarcerations ----------
 
 This section contains charts that show incarceration statistics for gender and race
@@ -27,10 +38,37 @@ gender and age categories. `jail_sortgender` contains more data than its
 `prison_sortgender` counterpart, as more data was provided by the Vera Institute. The
 data is divided up not only by gender but also by "juvenile" or "adulthood".
 
+
+`jail_sortgender`
+```{r echo = FALSE, message = FALSE}
+head(jail_sortgender)
+```
+
+
+`prison_sortgender`
+```{r echo = FALSE, message = FALSE}
+head(prison_sortgender)
+```
+
+
+
+
 Similarly, `jail_sortrace` and `prison_sortrace` compare numbers categorized by race.
 The total incarcerated population is grouped by race, providing a total population
 and individuals who are between the ages of 15 to 64. `prison_sortrace` was able to
 provide further information by specifying the gender of individuals along with race.
+
+
+`jail_sortrace`
+```{r echo = FALSE, message = FALSE}
+head(jail_sortrace)
+```
+
+
+`prison_sortrace`
+```{r echo = FALSE, message = FALSE}
+head(prison_sortrace)
+```
 
 
 # ---------- Comparing Jail Incarceration Statistics ----------
@@ -43,6 +81,18 @@ percent change (either increase or decrease) in population numbers for racial gr
 Also includes the number of individuals discharged that year.
 
 
+`jail_genderstats`
+```{r echo = FALSE, message = FALSE}
+head(jail_genderstats)
+```
+
+
+`jail_racestats`
+```{r echo = FALSE, message = FALSE}
+head(jail_racestats)
+```
+
+
 # ---------- Comparing Prison Incarceration Statistics ----------
 
 `prison_genderadm` compares newly admitted inmates in state/federal prisons by gender
@@ -51,6 +101,18 @@ and the percent increase along with it. `prison_raceadm` compares newly admitted
 in state/federal prisons by race over time. The chart takes into account total
 incarcerated numbers for each race, along with general admission numbers & rates and
 female/male admits & admission rates.
+
+
+`prison_genderadm`
+```{r echo = FALSE, message = FALSE}
+head(prison_genderadm)
+```
+
+
+`prison_raceadm`
+```{r echo = FALSE, message = FALSE}
+head(prison_raceadm)
+```
 
 
 # ---------- Trends Over Time Chart ----------
@@ -62,6 +124,19 @@ who suffer from racism and false accusations, so it's interesting to see how tha
 impacts the incarcerated populations compared to white individuals. Even though black
 individuals make up a lower percentage of racial demographics in the U.S. compared to
 their white counterparts, their incarcerated population is still similarly as high.
+
+```{r echo = FALSE, message = FALSE}
+ggplot(
+  melt_totc, 
+  aes(
+    x = Year, 
+    y = `New Admits`, 
+    group = Race, 
+    color = Race
+  )) +
+  geom_line() +
+  ggtitle("New Admits by Race Over Time")
+```
 
 
 # ---------- Variable Comparison Chart ----------
@@ -75,6 +150,14 @@ Second to white individuals, which made up ~47% of the incarcerated population, 
 individuals made up ~34% while other minorities are much lower (referencing to other
 years where the percentages of other minority groups were made available).
 
+```{r echo = FALSE, message = FALSE}
+ggplot(
+  melt_jailmax,
+  aes(x = Race, y = Percent)) +
+  geom_bar(stat = "identity") +
+  ggtitle(paste("Racial Distribution of Incarcerated Population (", melt_jailmax[1, "Year"], ")", sep = "")
+)
+```
 
 # ---------- Map ----------
 
@@ -86,3 +169,20 @@ Although numbers for AAPI and Native Americans are higher, they're still relativ
 low compared to white, black, and latinx individuals. From the map, it appears that
 those incarcerations are more prevalent towards the south, especially in states like
 Texas and Florida. Higher numbers also showed up in California. 
+
+```{r echo = FALSE, message = FALSE}
+ggplot(state_jail_join) +
+  geom_polygon(
+    mapping = aes(
+      x = long, 
+      y = lat, 
+      group = group, 
+      fill = `Population`
+    )
+  ) +
+  coord_map() +
+  scale_fill_continuous(high = "#fff44f", low = "#034746") +
+  facet_grid(Race ~ .) + # creates maps for each race
+  labs(fill = "Population") +
+  ggtitle(paste("Racial Distribution in Jail (2010)"))
+```
